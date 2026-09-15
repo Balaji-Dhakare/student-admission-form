@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Student Admission Enquiry</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+   (function(){
+      emailjs.init({
+        publicKey: "XP0-BHfuV7fLNGjeT",
+      });
+   })();
+</script>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+
+  .form-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 30px;
+  }
+
+  .form-container h2 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+    padding-bottom: 15px;
+  }
+
+  .form-section {
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+  }
+
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  .required-indicator {
+    color: #dc3545;
+    font-size: 1.2rem;
+    margin-left: 3px;
+  }
+
+  .optional-text {
+    font-size: 0.85rem;
+    color: #6c757d;
+    font-weight: 400;
+    margin-left: 5px;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .form-control.is-valid,
+  .form-select.is-valid {
+    border-color: #28a745;
+  }
+
+  .form-control.is-valid:focus,
+  .form-select.is-valid:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  }
+
+  .form-control.is-invalid,
+  .form-select.is-invalid {
+    border-color: #dc3545;
+  }
+
+  .form-control.is-invalid:focus,
+  .form-select.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  }
+
+  .invalid-feedback {
+    display: none;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
+
+  .is-invalid + .invalid-feedback,
+  .input-group:has(.is-invalid) + .invalid-feedback {
+    display: block;
+  }
+
+  .gender-options {
+    display: flex;
+    gap: 25px;
+    margin-top: 12px;
+  }
+
+  .form-check {
+    display: flex;
+    align-items: center;
+  }
+
+  .form-check-input {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    margin-top: 0;
+    cursor: pointer;
+    border: 2px solid #dee2e6;
+  }
+
+  .form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .form-check-label {
+    margin-bottom: 0;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .subjects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 12px;
+  }
+
+  .subject-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .subject-item:hover {
+    border-color: #007bff;
+    background-color: #f8f9fa;
+  }
+
+  .subject-item input:checked + label {
+    color: #007bff;
+    font-weight: 600;
+  }
+
+  .subject-item input:checked {
+    accent-color: #007bff;
+  }
+
+  .btn-submit {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border: none;
+    padding: 12px 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.3s;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
+  }
+
+  .btn-submit:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .form-container {
+      padding: 20px 15px;
+    }
+
+    .gender-options {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .subjects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+  </head>
+
+  <body>
+    <div class="form-container" id="formcontainer">
+      <form id="admissionForm" method="get" novalidate>
+        <h2>Student Admission Form</h2>
+
+        <!-- Student Details Section -->
+        <div class="form-section">
+          <div class="section-title">Student Details</div>
+
+          <div class="row g-3">
+            <!-- First Name -->
+            <div class="col-sm-6 col-md-4">
+              <label for="firstName" class="form-label">
+                First Name
+                <span class="required-indicator">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="firstName"
+                placeholder="e.g., Jane"
+                minlength="2"
+                pattern="[A-Za-z]+(?: [A-Za-z]+)*"
+                required
+              />
+              <div class="invalid-feedback">
+                Please enter a valid first name.
+              </div>
+            </div>
+
+            <!-- Middle Name -->
+            <div class="col-sm-6 col-md-4">
+              <label for="middleName" class="form-label">
+                Middle Name
+                <span class="optional-text">(optional)</span>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="middleName"
+                name="middleName"
+                placeholder="e.g., Michael"
+                pattern="[A-Za-z]+(?: [A-Za-z]+)*"
+              />
+              <div class="invalid-feedback">
+                Please enter a valid middle name.
+              </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="col-sm-6 col-md-4">
+              <label for="lastName" class="form-label">
+                Last Name
+                <span class="required-indicator">*</span>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                name="lastName"
+                placeholder="e.g., Doe"
+                minlength="2"
+                pattern="[A-Za-z]+(?: [A-Za-z]+)*"
+                required
+              />
+              <div class="invalid-feedback">
+                Please enter a valid last name.
+              </div>
+            </div>
+
+            <!-- DOB -->
+            <div class="col-sm-6 col-md-4">
+              <label for="dob" class="form-label">
+                Date of Birth
+                <span class="required-indicator">*</span>
+              </label>
+              <input
+                type="date"
+                class="form-control"
+                id="dob"
+                name="dob"
+                required
+              />
+              <div class="invalid-feedback">
+                Please enter a valid date of birth (3-18 years old).
+              </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label">
+                Gender
+                <span class="required-indicator">*</span>
+              </label>
+              <div class="gender-options">
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="genderMale"
+                    value="male"
+                    required
+                  />
+                  <label class="form-check-label" for="genderMale">
+                    Male
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="genderFemale"
+                    value="female"
+                    required
+                  />
+                  <label class="form-check-label" for="genderFemale">
+                    Female
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="gender"
+                    id="genderOther"
+                    value="other"
+                    required
+                  />
+                  <label class="form-check-label" for="genderOther">
+                    Other
+                  </label>
+                </div>
+              </div>
+              <div class="invalid-feedback" id="genderError" style="display: none;">
+                Please select a gender.
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="col-sm-6 col-md-4">
+              <label for="email" class="form-label">
+                Email Address
+                <span class="required-indicator">*</span>
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+              />
+              <div class="invalid-feedback">
+                Please enter a valid email address.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Details Section -->
+        <div class="form-section">
+          <div class="section-title">Contact Details</div>
+
+          <div class="row g-3">
+            <!-- Student Mobile -->
+            <div class="col-sm-6 col-md-6">
+              <label for="phone" class="form-label">
+                Student Mobile Number
+                <span class="required-indicator">*</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">+91</span>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone"
+                  name="phone"
+                  placeholder="Enter 10-digit number"
+                  pattern="[6-9][0-9]{9}"
+                  maxlength="10"
+                  required
+                />
+              </div>
+              <div class="invalid-feedback">
+                Enter a valid 10-digit mobile number.
+              </div>
+            </div>
+
+            <!-- Guardian Mobile -->
+            <div class="col-sm-6 col-md-6">
+              <label for="guardianPhone" class="form-label">
+                Guardian Mobile Number
+                <span class="optional-text">(optional)</span>
+              </label>
+              <div class="input-group">
+                <span class="input-group-text">+91</span>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="guardianPhone"
+                  name="guardianPhone"
+                  placeholder="Enter 10-digit number"
+                  pattern="[6-9][0-9]{9}"
+                  maxlength="10"
+                />
+              </div>
+              <div class="invalid-feedback">
+                Enter a valid 10-digit mobile number.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Academic Preferences Section -->
+        <div class="form-section">
+          <div class="section-title">Academic Preferences</div>
+
+          <div class="row g-3">
+            <!-- Class -->
+            <div class="col-sm-6 col-md-4">
+              <label for="class" class="form-label">
+                Class
+                <span class="required-indicator">*</span>
+              </label>
+              <select class="form-select" id="class" name="class" required>
+                <option value="" disabled selected>-- Select a Class --</option>
+                <option value="1">1st</option>
+                <option value="2">2nd</option>
+                <option value="3">3rd</option>
+                <option value="4">4th</option>
+                <option value="5">5th</option>
+                <option value="6">6th</option>
+                <option value="7">7th</option>
+                <option value="8">8th</option>
+                <option value="9">9th</option>
+                <option value="10">10th</option>
+                <option value="11">11th</option>
+                <option value="12">12th</option>
+              </select>
+              <div class="invalid-feedback">Please select a class.</div>
+            </div>
+
+            <!-- Division -->
+            <div class="col-sm-6 col-md-4">
+              <label for="division" class="form-label">
+                Division
+                <span class="required-indicator">*</span>
+              </label>
+              <select class="form-select" id="division" name="division" required>
+                <option value="" disabled selected>-- Select a Division --</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+              </select>
+              <div class="invalid-feedback">Please select a division.</div>
+            </div>
+
+            <!-- Batch -->
+            <div class="col-sm-6 col-md-4">
+              <label for="batch" class="form-label">
+                Preferred Batch
+                <span class="required-indicator">*</span>
+              </label>
+              <select class="form-select" id="batch" name="batch" required>
+                <option value="" disabled selected>-- Select a Batch --</option>
+                <option value="morning">Morning</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+              </select>
+              <div class="invalid-feedback">Please select a preferred batch.</div>
+            </div>
+
+            <!-- Subjects -->
+            <div class="col-12">
+              <label class="form-label">
+                Preferred Subjects
+                <span class="required-indicator">*</span>
+              </label>
+              <div class="subjects-grid">
+                <div class="subject-item">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="subjects"
+                    id="math"
+                    value="Math"
+                  />
+                  <label class="form-check-label" for="math">
+                    Math
+                  </label>
+                </div>
+
+                <div class="subject-item">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="subjects"
+                    id="science"
+                    value="Science"
+                  />
+                  <label class="form-check-label" for="science">
+                    Science
+                  </label>
+                </div>
+
+                <div class="subject-item">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="subjects"
+                    id="english"
+                    value="English"
+                  />
+                  <label class="form-check-label" for="english">
+                    English
+                  </label>
+                </div>
+
+                <div class="subject-item">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    name="subjects"
+                    id="marathi"
+                    value="Marathi"
+                  />
+                  <label class="form-check-label" for="marathi">
+                    Marathi
+                  </label>
+                </div>
+              </div>
+              <div class="invalid-feedback" id="subjectError" style="display: none;">
+                Please select at least one subject.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Address Information Section -->
+        <div class="form-section">
+          <div class="section-title">Address Information</div>
+
+          <div class="row g-3">
+            <!-- Address -->
+            <div class="col-12">
+              <label for="address" class="form-label">
+                Address
+                <span class="optional-text">(optional)</span>
+              </label>
+              <textarea
+                class="form-control"
+                id="address"
+                name="address"
+                placeholder="Enter your complete address"
+                rows="3"
+              ></textarea>
+            </div>
+
+            <!-- Country -->
+            <div class="col-sm-6 col-md-5">
+              <label for="country" class="form-label">
+                Country
+                <span class="required-indicator">*</span>
+              </label>
+              <select class="form-select" id="country" name="country" required>
+                <option value="" disabled selected>-- Select a Country --</option>
+              </select>
+              <div class="invalid-feedback">Please select a country.</div>
+            </div>
+
+            <!-- State -->
+            <div class="col-sm-6 col-md-4">
+              <label for="state" class="form-label">
+                State
+                <span class="required-indicator">*</span>
+              </label>
+              <select class="form-select" id="state" name="state" required disabled>
+                <option value="" disabled selected>-- Select a State --</option>
+              </select>
+              <div class="invalid-feedback">Please select a state.</div>
+            </div>
+
+            <!-- ZIP -->
+            <div class="col-sm-6 col-md-3">
+              <label for="zip" class="form-label">
+                PIN Code
+                <span class="optional-text">(optional)</span>
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="zip"
+                name="zip"
+                placeholder="6-digit PIN"
+                maxlength="6"
+                pattern="[0-9]{6}"
+              />
+              <div class="invalid-feedback">
+                PIN code must contain exactly 6 digits.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-submit" type="submit">Submit Form</button>
+      </form>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYjWjR9"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
