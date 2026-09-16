@@ -1006,7 +1006,8 @@ form.addEventListener("submit", function (event) {
         throw new Error(`Backend request failed with status ${response.status}`);
       }
 
-      return emailjs.send("service_id", "template_id", {
+      // Replace these placeholders with your EmailJS Service ID and Template ID.
+      return emailjs.send("YOUR_EMAILJS_SERVICE_ID", "YOUR_EMAILJS_TEMPLATE_ID", {
         firstName: firstName.value,
         middleName: middleName.value || "N/A",
         lastName: lastName.value,
