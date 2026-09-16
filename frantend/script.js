@@ -977,24 +977,56 @@ form.addEventListener("submit", function (event) {
       .map(cb => cb.value)
       .join(", ");
     
-    emailjs.send("service_chbqc3x","template_9gr4rry",{
-      firstName: firstName.value,
-      middleName: middleName.value || "N/A",
-      lastName: lastName.value,
-      dob: dob.value,
-      gender: document.querySelector('input[name="gender"]:checked')?.value || "N/A",
-      email: email.value,
-      phone: phone.value,
-      guardianPhone: guardianPhone.value || "N/A",
-      class: studentClass.value,
-      division: division.value,
-      batch: batch.value,
-      subjects: selectedSubjects,
-      address: address.value || "N/A",
-      country: country.value,
-      state: state.value,
-      zip: zip.value || "N/A"
-    }).then(function (response) {
+     
+   fetch("http://127.0.0.1:8000/student",{
+    method:"POST",
+    body:JSON.stringify({
+    firstName: firstName.value,
+    middleName: middleName.value || "N/A",
+    lastName: lastName.value,
+    email: email.value,
+    address: address.value || "N/A",
+    phone: phone.value,
+    guardianPhone: guardianPhone.value || "N/A",
+    gender: document.querySelector('input[name="gender"]:checked')?.value || "N/A",
+    dob: dob.value,
+    country: country.value,
+    state: state.value,
+    zip: zip.value || "N/A",
+    class_name: studentClass.value,
+    division: division.value,
+    subjects: selectedSubjects,
+    batch: batch.value  
+    }),
+    headers:{'Content-type': 'application/json; charset=UTF-8',}
+   })
+    .then(function (response) {
+
+      if (!response.ok) {
+        throw new Error(`Backend request failed with status ${response.status}`);
+      }
+
+      return emailjs.send("service_id", "template_id", {
+        firstName: firstName.value,
+        middleName: middleName.value || "N/A",
+        lastName: lastName.value,
+        dob: dob.value,
+        gender: document.querySelector('input[name="gender"]:checked')?.value || "N/A",
+        email: email.value,
+        phone: phone.value,
+        guardianPhone: guardianPhone.value || "N/A",
+        class: studentClass.value,
+        division: division.value,
+        batch: batch.value,
+        subjects: selectedSubjects,
+        address: address.value || "N/A",
+        country: country.value,
+        state: state.value,
+        zip: zip.value || "N/A"
+      });
+
+    })
+    .then(function (response) {
 
       console.log("Email sent successfully:", response);
 
