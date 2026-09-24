@@ -1,15 +1,28 @@
 # Virtual environment
 .soenv/
+.venv/
+venv/
 
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
+.pytest_cache/
+.mypy_cache/
 
 # Environment secrets
 .env
 .env.*
 *.env
+
+# Frontend dependencies
+node_modules/
+
+# Local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
 
 # Private files
 config.json
