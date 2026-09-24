@@ -1,0 +1,17 @@
+# Virtual environment
+.soenv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment secrets
+.env
+.env.*
+*.env
+
+# Private files
+config.json
+secrets.json
+settings.local.py

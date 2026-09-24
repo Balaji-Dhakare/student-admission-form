@@ -6,15 +6,25 @@
 
     <title>Student Admission Enquiry</title>
 
+
+    <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css"/>
+
+    <!-- EmailJS Library -->
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
+    </script>
+
+
 <script type="text/javascript">
    (function(){
       emailjs.init({
@@ -23,200 +33,7 @@
    })();
 </script>
 
-<style>
-  body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    min-height: 100vh;
-    padding: 20px 0;
-  }
 
-  .form-container {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 30px;
-  }
-
-  .form-container h2 {
-    color: #2c3e50;
-    font-weight: 700;
-    margin-bottom: 30px;
-    text-align: center;
-    padding-bottom: 15px;
-  }
-
-  .form-section {
-    margin-bottom: 35px;
-    padding-bottom: 25px;
-  }
-
-  .section-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #2c3e50;
-    margin-bottom: 20px;
-  }
-
-  .form-label {
-    font-weight: 500;
-    color: #2c3e50;
-    margin-bottom: 8px;
-    display: flex;
-    align-items: center;
-  }
-
-  .required-indicator {
-    color: #dc3545;
-    font-size: 1.2rem;
-    margin-left: 3px;
-  }
-
-  .optional-text {
-    font-size: 0.85rem;
-    color: #6c757d;
-    font-weight: 400;
-    margin-left: 5px;
-  }
-
-  .form-control:focus,
-  .form-select:focus {
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
-
-  .form-control.is-valid,
-  .form-select.is-valid {
-    border-color: #28a745;
-  }
-
-  .form-control.is-valid:focus,
-  .form-select.is-valid:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-  }
-
-  .form-control.is-invalid,
-  .form-select.is-invalid {
-    border-color: #dc3545;
-  }
-
-  .form-control.is-invalid:focus,
-  .form-select.is-invalid:focus {
-    border-color: #dc3545;
-    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-  }
-
-  .invalid-feedback {
-    display: none;
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 5px;
-  }
-
-  .is-invalid + .invalid-feedback,
-  .input-group:has(.is-invalid) + .invalid-feedback {
-    display: block;
-  }
-
-  .gender-options {
-    display: flex;
-    gap: 25px;
-    margin-top: 12px;
-  }
-
-  .form-check {
-    display: flex;
-    align-items: center;
-  }
-
-  .form-check-input {
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-    margin-top: 0;
-    cursor: pointer;
-    border: 2px solid #dee2e6;
-  }
-
-  .form-check-input:checked {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-
-  .form-check-label {
-    margin-bottom: 0;
-    font-weight: 500;
-    cursor: pointer;
-  }
-
-  .subjects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 15px;
-    margin-top: 12px;
-  }
-
-  .subject-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    border: 2px solid #e9ecef;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .subject-item:hover {
-    border-color: #007bff;
-    background-color: #f8f9fa;
-  }
-
-  .subject-item input:checked + label {
-    color: #007bff;
-    font-weight: 600;
-  }
-
-  .subject-item input:checked {
-    accent-color: #007bff;
-  }
-
-  .btn-submit {
-    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
-    border: none;
-    padding: 12px 40px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 6px;
-    transition: all 0.3s;
-    margin-top: 20px;
-  }
-
-  .btn-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
-  }
-
-  .btn-submit:active {
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    .form-container {
-      padding: 20px 15px;
-    }
-
-    .gender-options {
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .subjects-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
   </head>
 
   <body>
@@ -321,7 +138,7 @@
                     type="radio"
                     name="gender"
                     id="genderMale"
-                    value="male"
+                    value="Male"
                     required
                   />
                   <label class="form-check-label" for="genderMale">
@@ -334,7 +151,7 @@
                     type="radio"
                     name="gender"
                     id="genderFemale"
-                    value="female"
+                    value="Female"
                     required
                   />
                   <label class="form-check-label" for="genderFemale">
@@ -347,7 +164,7 @@
                     type="radio"
                     name="gender"
                     id="genderOther"
-                    value="other"
+                    value="Other"
                     required
                   />
                   <label class="form-check-label" for="genderOther">
@@ -642,6 +459,11 @@
     ></script>
 
     <!-- Custom JavaScript -->
-    <script src="script.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/location.js"></script>
+    <script src="js/api/studentApi.js"></script>
+    <script src="js/api/employeeApi.js"></script>
+    <script src="js/email/emailService.js"></script>
+    <script src="js/form.js"></script>
   </body>
 </html>

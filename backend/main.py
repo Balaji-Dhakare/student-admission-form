@@ -1,8 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
 from database import engine, Base, SessionLocal
-from schema import StudentCreate
+from schema import StudentDetails
+
 from models import User, Academics
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -29,8 +31,14 @@ def get_db():
 def greet():
     return {"message": "Welcome to the Smart Onboarding API!"}
 
-@app.post("/student/")
-def create_user(new_student:StudentCreate, db: Session = Depends(get_db)):
+@app.get("/students/")
+def fetch_students(db: Session = Depends(get_db)):
+    data = db.query(User).all()
+    return jsonable_encoder(data)
+
+
+@app.post("/students/")
+def create_user(new_student:StudentDetails, db: Session = Depends(get_db)):
     try:
         new_user = User(
             firstName=  new_student.firstName,
@@ -44,16 +52,15 @@ def create_user(new_student:StudentCreate, db: Session = Depends(get_db)):
             dob=  new_student.dob,
             country=  new_student.country,
             state=  new_student.state,
-            zip=  new_student.zip
+            zip=  new_student.zip,
+            status = new_student.status
         )
 
         db.add(new_user)
-        
+
         db.flush()
         new_academics = Academics(
-
             user_id=new_user.id,
-
             class_name=new_student.class_name,
             division=new_student.division,
             subjects=new_student.subjects,
